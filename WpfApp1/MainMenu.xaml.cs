@@ -10,19 +10,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace wpf_MainMenu
+namespace WpfApp1
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainMenu : Window
     {
-        public MainWindow()
+        public MainMenu()
         {
             InitializeComponent();
+        }
+
+        private void BtnZones_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mw = new MainWindow();
+            this.Hide();
+            mw.Show();
         }
     }
 }

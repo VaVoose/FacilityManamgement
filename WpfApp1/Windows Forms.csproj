@@ -131,8 +131,5 @@
   <ItemGroup>
     <Resource Include="Images\heatpump3.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Blueprint.jpg" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

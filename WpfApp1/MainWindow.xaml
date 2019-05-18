@@ -8,10 +8,10 @@
         Title="MainWindow" Height="450" Width="800">
 
     <Grid>
-
+        <!--
         <Grid.Background>
-            <Image Source="Images/Blueprint.png" Stretch="UniformToFill" />
-        </Grid.Background>
+            <ImageBrush ImageSource="Images/Blueprint.png" Stretch="UniformToFill" />
+        </Grid.Background>-->
 
         <DockPanel>
             <Menu DockPanel.Dock="Top">

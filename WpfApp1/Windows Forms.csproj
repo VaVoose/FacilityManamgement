@@ -122,5 +122,17 @@
   <ItemGroup>
     <Resource Include="Images\zones.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\heatpump.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\heatpump2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\heatpump3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Blueprint.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

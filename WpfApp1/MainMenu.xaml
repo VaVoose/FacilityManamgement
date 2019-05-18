@@ -1,0 +1,31 @@
+﻿<Window x:Class="WpfApp1.MainMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="Main Menu" Height="511.406" Width="932.443">
+
+    <Border Padding="10">
+        <StackPanel Margin="0,0,2,0">
+            <Label x:Name="lblOption" Content="Choose Option" HorizontalAlignment="Left" Height="35" Margin="10,10,0,10" VerticalAlignment="Top" Width="147" FontWeight="Bold" FontSize="18"/>
+            <Grid Height="396">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="btnZones" Grid.Column="0" Click="BtnZones_Click" >
+                    <Image x:Name="imgZones" HorizontalAlignment="Left" Height="352" Margin="10,10,0,0" VerticalAlignment="Top" Width="262" Source="Images/zones.png" Stretch="Fill"/>
+                </Button>
+                <Button x:Name="btnEquiptment" Grid.Column="1">
+                    <Image  x:Name="imgEquiptment" HorizontalAlignment="Left" Height="352" Margin="10,10,0,0" VerticalAlignment="Top" Width="262" Source="Images/equiptment.png" Stretch="Fill"/>
+                </Button>
+                <Button x:Name="btnReports" Grid.Column="2" >
+                    <Image x:Name="imgReports" HorizontalAlignment="Left" Height="352" Margin="10,10,0,0" VerticalAlignment="Top" Width="262" Source="Images/reports.png" Stretch="Fill"/>
+                </Button>
+            </Grid>
+        </StackPanel>
+    </Border>
+</Window>

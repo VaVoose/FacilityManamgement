@@ -63,6 +63,16 @@ namespace WpfApp1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Blueprint {
+            get {
+                object obj = ResourceManager.GetObject("Blueprint", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap equiptment {
             get {
                 object obj = ResourceManager.GetObject("equiptment", resourceCulture);

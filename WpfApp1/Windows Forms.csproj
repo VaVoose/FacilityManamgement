@@ -122,5 +122,14 @@
   <ItemGroup>
     <Resource Include="Images\zones.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Blueprint.jpg.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Blueprint.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Blueprint.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

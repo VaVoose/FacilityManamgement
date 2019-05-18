@@ -10,7 +10,7 @@
     <Grid>
 
         <Grid.Background>
-            <ImageBrush ImageSource="Blueprint.png" Stretch="UniformToFill" />
+            <ImageBrush ImageSource="Images\Blueprint.png" Stretch="UniformToFill" />
         </Grid.Background>
 
         <DockPanel>

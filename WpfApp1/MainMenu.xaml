@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800">
+        Title="Main Menu" Height="511.406" Width="932.443">
+
     <Border Padding="10">
         <StackPanel Margin="0,0,2,0">
-            <Label x:Name="lblOption" Content="Choose Option" HorizontalAlignment="Left" Height="28" Margin="10,10,0,0" VerticalAlignment="Top" Width="147" FontWeight="Bold"/>
-            <Grid Height="403">
+            <Label x:Name="lblOption" Content="Choose Option" HorizontalAlignment="Left" Height="35" Margin="10,10,0,10" VerticalAlignment="Top" Width="147" FontWeight="Bold" FontSize="18"/>
+            <Grid Height="396">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>

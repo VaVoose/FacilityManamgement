@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Data;
+using System.Configuration;
 
 namespace WpfApp1
 {
@@ -25,17 +26,6 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
-            //Syntax of connection
-            //SQL Authentication
-            //@"Data Source=(MachineName)\(InstanceName); Initial Catalog=(DBName); User ID=(Username); Password=(UserPassword);"
-            SqlConnection sqlCon = new SqlConnection(@"Data Source=99.153.22.230; Initial Catalog=master; User ID=SA; Password=sqlFacility2");
-            SqlDataAdapter sqlDA = new SqlDataAdapter("Select * from equiptment", sqlCon);
-            DataTable dtbl = new DataTable();
-            sqlDA.Fill(dtbl);
-            foreach (DataRow row in dtbl.Rows) {
-                Console.WriteLine(row["name"]);
-                Console.WriteLine(row["location"]);
-            }
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)

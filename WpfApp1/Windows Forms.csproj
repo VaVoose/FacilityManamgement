@@ -123,13 +123,16 @@
     <Resource Include="Images\zones.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Blueprint.jpg.bmp" />
+    <Resource Include="Images\heatpump.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Blueprint.png" />
+    <Resource Include="Images\heatpump2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Blueprint.png" />
+    <Resource Include="Images\heatpump3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Blueprint.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

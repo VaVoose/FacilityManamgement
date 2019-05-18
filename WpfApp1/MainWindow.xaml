@@ -6,24 +6,40 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
     <Grid>
+
+        <Grid.Background>
+            <ImageBrush ImageSource="Blueprint.png" Stretch="UniformToFill" />
+        </Grid.Background>
+
         <DockPanel>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
-                    <MenuItem Header="_New" />
-                    <MenuItem Header="_Open" />
-                    <MenuItem Header="_Save" />
+                    <MenuItem Header="_New" Click="FileNewClick" />
+                    <MenuItem Header="_Open" Click="FileOpenClick" />
+                    <MenuItem Header="_Save" Click="ToolsModifyClick"/>
+                    <Separator />
+                    <MenuItem Header="_Exit" Click="FileExitClick" />
+                </MenuItem>
+
+                <MenuItem Header="_Tools">
+                    <MenuItem Header="Modify Zoning" Click="ToolsModifyClick" />
+                    <MenuItem Header="_Change Blueprint" Click="ToolsBlueprintClick"/>
+                    <MenuItem Header="_Save" Click="ToolsSaveClick" />
                     <Separator />
                     <MenuItem Header="_Exit" />
                 </MenuItem>
 
-                <MenuItem Header="_Tools">
-                    <MenuItem Header="Modify Zoning" />
-                    <MenuItem Header="_Change Blueprint" />
-                    <MenuItem Header="_Save" />
+                <MenuItem Header="_Zoning">
+                    <MenuItem Header="_Electrical" Click="ZoningElectricalClick" />
+                    <MenuItem Header="_Plumbing" Click="ZoningPlumbingClick" />
+                    <MenuItem Header="_HVAC" Click="ZoningHVACClick" />
+                    <MenuItem Header="_Janitorial" Click="ZoningJanitorialClick" />
                     <Separator />
-                    <MenuItem Header="_Exit" />
+                    <MenuItem Header="_Exit" Click="ZoningExitClick" />
                 </MenuItem>
+
             </Menu>
             <TextBox AcceptsReturn="True" />
         </DockPanel>

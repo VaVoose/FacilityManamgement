@@ -25,12 +25,62 @@ namespace WpfApp1
             InitializeComponent();
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void FileNewClick(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        private void FileOpenClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void FileSaveClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void FileExitClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ToolsModifyClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ToolsBlueprintClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ToolsSaveClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ZoningElectricalClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ZoningPlumbingClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ZoningHVACClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ZoningJanitorialClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ZoningExitClick(object sender, RoutedEventArgs e)
         {
 
         }

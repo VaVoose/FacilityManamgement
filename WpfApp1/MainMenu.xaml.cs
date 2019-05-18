@@ -27,8 +27,9 @@ namespace WpfApp1
         private void BtnZones_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mw = new MainWindow();
-            this.Hide();
+            
             mw.Show();
+            this.Close();
         }
     }
 }

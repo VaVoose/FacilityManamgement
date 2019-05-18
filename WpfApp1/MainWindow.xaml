@@ -8,12 +8,10 @@
         Title="MainWindow" Height="450" Width="800">
 
     <Grid>
-        <!--
-        <Grid.Background>
-            <ImageBrush ImageSource="Images/Blueprint.png" Stretch="UniformToFill" />
-        </Grid.Background>-->
-
         <DockPanel>
+            
+            <Image x:Name="imgBlueprint" HorizontalAlignment="Left" Margin="10,10" VerticalAlignment="Top" Source="Images/Blueprint.png" Stretch="Fill"/>
+            
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
                     <MenuItem Header="_New" Click="FileNewClick" />
@@ -41,8 +39,6 @@
                 </MenuItem>
 
             </Menu>
-            <TextBox AcceptsReturn="True" />
         </DockPanel>
-
     </Grid>
 </Window>

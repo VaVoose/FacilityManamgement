@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="Zones" Height="450" Width="800">
+        Title="Zones" Height="375.761" Width="604.695">
 
     <Grid>
         <DockPanel>
-            
-            <Image x:Name="imgBlueprint" HorizontalAlignment="Left" Margin="10,10" VerticalAlignment="Top" Source="Images/Blueprint.png" Stretch="Fill"/>
-            
+            <Button x:Name="btnTest" Click="BtnTest_Click">
+                <Image x:Name="imgBlueprint" HorizontalAlignment="Left" Margin="10,10" VerticalAlignment="Top" Source="Images/Blueprint.png" Stretch="Fill"/>
+            </Button>
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
                     <MenuItem Header="_New" Click="FileNewClick" />

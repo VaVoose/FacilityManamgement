@@ -14,6 +14,9 @@ using System.Windows.Shapes;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.IO;
+using Microsoft.Win32;
+using System.Drawing;
 
 namespace WpfApp1
 {
@@ -23,6 +26,9 @@ namespace WpfApp1
     public partial class ZoneWindow : Window
     {
         public int roomNumber;
+        String filePath;
+        public Byte[] imageByteArray;
+        public SqlConnection sqlCon;
 
         // Constructor for the Zone Window
         // Param zoneID: The id of the zone that the information will be queried from
@@ -36,7 +42,13 @@ namespace WpfApp1
             this.Title = "Zone " + zoneID;
 
             roomNumber = zoneID;
+            openSQLConnection();
             bindDataGrid();
+            
+        }
+
+        public void openSQLConnection() {
+
         }
 
         // This overrides the red 'X' button to shutdown the application without having to close the previous window
@@ -49,13 +61,12 @@ namespace WpfApp1
 
         // -------------This is an example of how to bind data to a data grid --------------- //
         // -------------                  Use it for reference                --------------- //
-        private void bindDataGrid() {            
+        private void bindDataGrid() {
             //Instantiates a Connection String
             SqlConnection sqlCon = new SqlConnection();
             //Sets the connection string to point to the master connection set in "App.config"
             sqlCon.ConnectionString = ConfigurationManager.ConnectionStrings["masterConnection"].ConnectionString;
             sqlCon.Open();
-
             //Instantiates a new sql command string
             SqlCommand cmd = new SqlCommand();
             //This is where you write your query to populate the table
@@ -87,8 +98,50 @@ namespace WpfApp1
             if (row_selected != null) {
                 //changed the text of the text box to the the part number
                 //"partNo" is the column header of the specific column that is used in the DATABASE (not set in the program)
-                txtTest.Text = row_selected["partNo"].ToString();
+                txtTest.Text = row_selected["locatedID"].ToString();
             }
+        }
+
+        private void BtnAddImage_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Image files (*.jpg, *.png)|*.png; *.jpg";
+            //Currently assumes valid file
+            ofd.ShowDialog();
+            filePath = ofd.FileName;
+            lblFileName.Content = System.IO.Path.GetFileName(filePath);
+
+
+
+        }
+
+        private void BtnSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            // ------ 
+            //        For some reason I have to reinstatiate the connection string everytime I want to use it in the same window
+            //        In not sure how to fix this as of now
+            //        maybe a specific static class that holds the sqlConnection?
+            //        Somehow instatiate it for the whole window? (tried this with no luck)
+            //------- 
+
+            //Instantiates a Connection String
+            SqlConnection sqlCon = new SqlConnection();
+            //Sets the connection string to point to the master connection set in "App.config"
+            sqlCon.ConnectionString = ConfigurationManager.ConnectionStrings["masterConnection"].ConnectionString;
+            sqlCon.Open();
+            System.Drawing.Image temp = new Bitmap(filePath);
+            MemoryStream strm = new MemoryStream();
+            temp.Save(strm, System.Drawing.Imaging.ImageFormat.Png);
+            imageByteArray = strm.ToArray();
+            if (sqlCon.State == ConnectionState.Closed) sqlCon.Open();
+            SqlCommand sqlCmdAddImage = new SqlCommand("sp_ImageAddOrEdit", sqlCon) { CommandType = CommandType.StoredProcedure };
+            DataRowView rowSelected = dgParts.SelectedItem as DataRowView;
+            string strCurrentRowID = rowSelected["ID"].ToString();
+
+            sqlCmdAddImage.Parameters.Add("@ID", strCurrentRowID);
+            sqlCmdAddImage.Parameters.Add("@image", imageByteArray);
+
+            sqlCmdAddImage.ExecuteNonQuery();
         }
     }
 }

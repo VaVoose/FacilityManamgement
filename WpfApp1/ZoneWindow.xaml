@@ -34,14 +34,19 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0">
+                    <Button x:Name="btnSubmit" Grid.Column="0" Click="BtnSubmit_Click">
                         <Label Content="Submit"/>
                     </Button>
-                    <Button Grid.Column="1">
+                    <Button x:Name="btnClear" Grid.Column="1">
                         <Label Content="Clear"/>
                     </Button>
+                     <Button x:Name="btnAddImage" Grid.Column="2" Click="BtnAddImage_Click">
+                           <Label Content="Add Image"/>
+                     </Button>
                 </Grid>
+                <Label x:Name="lblFileName" Content="Test Content"/>
 
             </StackPanel>
 

@@ -63,7 +63,26 @@ namespace WpfApp1
             SqlConnection sqlCon = new SqlConnection();
             //Sets the connection string to point to the master connection set in "App.config"
             sqlCon.ConnectionString = ConfigurationManager.ConnectionStrings["masterConnection"].ConnectionString;
-            sqlCon.Open();
+
+            System.Windows.Forms.MessageBox.Show("Connecting to Database...");
+
+            int retries = 0;
+            while (true)
+            {
+                try
+                {
+
+                    sqlCon.Open();
+                    break;
+
+                }
+                catch (System.Data.SqlClient.SqlException)
+                {
+                    System.Windows.Forms.MessageBox.Show("Connection Failed. Retry iteration" + (retries+1));
+                    if (++retries == 3) throw;
+                }
+            }
+            
             //Instantiates a new sql command string
             SqlCommand cmd = new SqlCommand();
             //This is where you write your query to populate the table

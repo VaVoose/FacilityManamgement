@@ -14,54 +14,71 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <!--Make sure that AutoGenerateColumn is set to false otherwise it will double populate the table-->
-            <DataGrid x:Name="dgParts" Grid.Column="0" HorizontalAlignment="Center" Height="379" Margin="10,10" VerticalAlignment="Top" AutoGenerateColumns="False" Width="237" SelectionChanged="DgParts_SelectionChanged">
+            <DataGrid x:Name="dgParts" Grid.Column="0" HorizontalAlignment="Center" Height="379" Margin="10,10" VerticalAlignment="Top" AutoGenerateColumns="False" SelectionChanged="DgParts_SelectionChanged">
                 <!--Column Header Text and Bindings-->
                 <DataGrid.Columns>
                     <!--The Binding part works like this Binding = {Binding (column in the table that you want to see)}-->
-                    <DataGridTextColumn x:Name="dgtcPart" Header="Part" Binding="{Binding partNo}" Width="*"/>
+                    <DataGridTextColumn x:Name="dgtcPart" Header="Existing Componenets" Binding="{Binding partNo}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
+            
             <StackPanel x:Name="spnlEquiptmentOverview" Grid.Column="1" Margin="10,10">
+                
                 <TextBox x:Name="txtTest" Text=" This is a test" FontSize="25"/>
+                
                 <Image x:Name="imgPartPic" Height="100"/>
+                
                 <ListView x:Name="lvDetails" Height="263">
+                    
                     <ListView.View>
+                        
                         <GridView x:Name="gvDetails">
                             <GridViewColumn x:Name="gvcType" Header="Type" Width="auto"/>
                             <GridViewColumn x:Name="gvcText" Header="Text" Width="auto"/>
                         </GridView>
+                        
                     </ListView.View>
                 </ListView>
 
 
 
             </StackPanel>
+
             <StackPanel x:Name="spnlAddNewInfo" Grid.Column="2" Margin="10,10">
+
                 <Label Content="Add new info here"/>
+
                 <TextBox x:Name="txtNewInfo" Height="200"/>
+
                 <Grid>
+
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+
                     <Button x:Name="btnSubmit" Grid.Column="0" Click="BtnSubmit_Click">
                         <Label Content="Submit"/>
                     </Button>
+
                     <Button x:Name="btnClear" Grid.Column="1">
                         <Label Content="Clear"/>
                     </Button>
-                     <Button x:Name="btnAddImage" Grid.Column="2" Click="BtnAddImage_Click">
-                           <Label Content="Add Image"/>
-                     </Button>
+
+                    <Button x:Name="btnAddImage" Grid.Column="2" Click="BtnAddImage_Click">
+                        <Label Content="Add Image"/>
+                    </Button>
+
                 </Grid>
+
                 <Label x:Name="lblFileName" Content="Test Content"/>
+
                 <Button x:Name="btnSubmitPic" Grid.Column="0" Click="BtnSubmitPic_Click">
                     <Label Content="Submit Picture"/>
                 </Button>
 
             </StackPanel>
-
 
         </Grid>
     </Border>

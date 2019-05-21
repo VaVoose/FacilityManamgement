@@ -9,9 +9,9 @@
 
     <Grid>
         <DockPanel>
-            
+
             <Image x:Name="imgBlueprint" HorizontalAlignment="Left" Margin="10,10" VerticalAlignment="Top" Source="Images/Blueprint.png" Stretch="Fill"/>
-            
+
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
                     <MenuItem Header="_New" Click="FileNewClick" />
@@ -37,6 +37,8 @@
                     <Separator />
                     <MenuItem Header="_Exit" Click="ZoningExitClick" />
                 </MenuItem>
+                
+                
 
             </Menu>
         </DockPanel>

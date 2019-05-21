@@ -28,6 +28,14 @@ namespace WpfApp1
             InitializeComponent();
         }
 
+        // This overrides the red 'X' button to shutdown the application without having to close the previous window
+        // This should be in every windows code
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            Application.Current.Shutdown();
+        }
+
         private void FileNewClick(object sender, RoutedEventArgs e)
         {
 
@@ -86,6 +94,14 @@ namespace WpfApp1
         private void ZoningExitClick(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void BtnTest_Click(object sender, RoutedEventArgs e)
+        {
+            ZoneWindow zw = new ZoneWindow(1);
+            zw.Owner = this;
+            //this.Hide();
+            zw.Show();
         }
     }
 }

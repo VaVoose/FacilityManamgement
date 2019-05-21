@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="ZoneWindow" Height="450" Width="800">
+        Title="ZoneWindow" Height="450" Width="833">
     <Border Padding="10">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -23,7 +23,16 @@
             </DataGrid>
             <StackPanel x:Name="spnlEquiptmentOverview" Grid.Column="1">
                 <TextBox x:Name="txtTest" Text=" This is a test" FontSize="25"/>
-                <Image x:Name="imgEquiptmentPic"/>
+                <Image x:Name="imgPartPic" Height="100"/>
+                <ListView x:Name="lvDetails" Height="263">
+                    <ListView.View>
+                        <GridView x:Name="gvDetails">
+                            <GridViewColumn x:Name="gvcType" Header="Type" Width="auto"/>
+                            <GridViewColumn x:Name="gvcText" Header="Text" Width="auto"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
 
 
             </StackPanel>
@@ -47,6 +56,9 @@
                      </Button>
                 </Grid>
                 <Label x:Name="lblFileName" Content="Test Content"/>
+                <Button x:Name="btnSubmitPic" Grid.Column="0" Click="BtnSubmitPic_Click">
+                    <Label Content="Submit Picture"/>
+                </Button>
 
             </StackPanel>
 

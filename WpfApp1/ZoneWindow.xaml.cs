@@ -35,16 +35,13 @@ namespace WpfApp1
         public ZoneWindow(int zoneID)
         {
             InitializeComponent();
-            
             //If there is some way to pass in data to the new window the title can be dynamically set here so that
             //it displays the proper zone name
             //The zone data id is also required for the query below to get accurate results
             this.Title = "Zone " + zoneID;
-
             roomNumber = zoneID;
             openSQLConnection();
             bindDataGrid();
-            
         }
 
         public void openSQLConnection() {
@@ -98,10 +95,38 @@ namespace WpfApp1
             if (row_selected != null) {
                 //changed the text of the text box to the the part number
                 //"partNo" is the column header of the specific column that is used in the DATABASE (not set in the program)
-                txtTest.Text = row_selected["locatedID"].ToString();
+                txtTest.Text = row_selected["partNo"].ToString();
             }
+
+            //Instantiates a Connection String
+            SqlConnection sqlCon = new SqlConnection();
+            //Sets the connection string to point to the master connection set in "App.config"
+            sqlCon.ConnectionString = ConfigurationManager.ConnectionStrings["masterConnection"].ConnectionString;
+            sqlCon.Open();
+            //Instantiates a new sql command string
+            SqlCommand cmd = new SqlCommand();
+            DataRowView rowSelected = dgParts.SelectedItem as DataRowView;
+            string strCurrentRowID = rowSelected["ID"].ToString();
+            //This is where you write your query to populate the table
+            //You can write any kind of query here
+            cmd.CommandText = "SELECT * FROM [partDocuments] WHERE partID = " + strCurrentRowID ;
+            //Sets the commands connectio
+            cmd.Connection = sqlCon;
+
+            //Creates a new SQL Data Adapter (not sure what this does)
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            //Creates a new Data Table
+            DataTable dtbl = new DataTable("Documents");
+            //Fills the data adapter with the information in the data table
+            da.Fill(dtbl);
+
+            //Sets the xaml data grid to display the data adapted table
+            lvDetails.ItemsSource = dtbl.DefaultView;
+            gvcType.DisplayMemberBinding = new Binding("ID");
+            gvcText.DisplayMemberBinding = new Binding("documentText");  
         }
 
+        //Opens dialog box to select a picture to be added
         private void BtnAddImage_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -110,12 +135,19 @@ namespace WpfApp1
             ofd.ShowDialog();
             filePath = ofd.FileName;
             lblFileName.Content = System.IO.Path.GetFileName(filePath);
+        }
 
-
+        // Submits the text as a new "document" in the listview
+        private void BtnSubmit_Click(object sender, RoutedEventArgs e)
+        {
 
         }
 
-        private void BtnSubmit_Click(object sender, RoutedEventArgs e)
+        //
+        // Image submit functionallity currently does not work
+        // Possibly to be completely reworked
+        //
+        private void BtnSubmitPic_Click(object sender, RoutedEventArgs e)
         {
             // ------ 
             //        For some reason I have to reinstatiate the connection string everytime I want to use it in the same window
@@ -137,7 +169,10 @@ namespace WpfApp1
             SqlCommand sqlCmdAddImage = new SqlCommand("sp_ImageAddOrEdit", sqlCon) { CommandType = CommandType.StoredProcedure };
             DataRowView rowSelected = dgParts.SelectedItem as DataRowView;
             string strCurrentRowID = rowSelected["ID"].ToString();
-
+            foreach (int i in imageByteArray)
+            {
+                Console.Write(imageByteArray[i]);
+            }
             sqlCmdAddImage.Parameters.Add("@ID", strCurrentRowID);
             sqlCmdAddImage.Parameters.Add("@image", imageByteArray);
 

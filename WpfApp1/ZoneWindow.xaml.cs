@@ -63,6 +63,7 @@ namespace WpfApp1
             SqlConnection sqlCon = new SqlConnection();
             //Sets the connection string to point to the master connection set in "App.config"
             sqlCon.ConnectionString = ConfigurationManager.ConnectionStrings["masterConnection"].ConnectionString;
+            sqlCon.ConnectionString += ";Connection Timeout=30";
 
             System.Windows.Forms.MessageBox.Show("Connecting to Database...");
 
@@ -71,8 +72,9 @@ namespace WpfApp1
             {
                 try
                 {
-
+                    S
                     sqlCon.Open();
+
                     break;
 
                 }
@@ -80,9 +82,11 @@ namespace WpfApp1
                 {
                     if (++retries == 3) throw;
 
-                    System.Windows.Forms.MessageBox.Show("Connection Failed. Retry iteration " + (retries + 1));
+                    System.Windows.Forms.MessageBox.Show("Connection Failed. Retry iteration " + (retries));
 
                     sqlCon.Close();
+
+                    continue;
                 }
             }
             

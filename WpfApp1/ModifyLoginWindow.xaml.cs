@@ -18,24 +18,25 @@ using System.Windows.Shapes;
 namespace WpfApp1
 {
     /// <summary>
-    /// Interaction logic for LoginWindow.xaml
+    /// Interaction logic for ModifyLoginWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class ModifyLoginWindow : Window
     {
-        private string username;
-        private bool MRP, ITRP, TP, AP, SAP;
-        public LoginWindow()
+        public ModifyLoginWindow()
         {
             InitializeComponent();
+            bindDataGrid();
         }
 
-        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        private void bindDataGrid()
         {
             //Instantiates a Connection String
             SqlConnection sqlCon = new SqlConnection();
             //Sets the connection string to point to the master connection set in "App.config"
             sqlCon.ConnectionString = ConfigurationManager.ConnectionStrings["masterConnection"].ConnectionString;
             sqlCon.ConnectionString += ";Connection Timeout=30";
+
+            System.Windows.Forms.MessageBox.Show("Connecting to Database...");
 
             int retries = 0;
             while (true)
@@ -58,34 +59,19 @@ namespace WpfApp1
             SqlCommand cmd = new SqlCommand();
             //This is where you write your query to populate the table
             //You can write any kind of query here
-            cmd.CommandText = "SELECT * FROM [login] WHERE username = '" + txtUsername.Text.Trim() + "' AND password = '" + txtPassword.Text.Trim() + "'";
+            cmd.CommandText = "SELECT * FROM [login]";
             //Sets the commands connectio
             cmd.Connection = sqlCon;
 
+            //Creates a new SQL Data Adapter (not sure what this does)
             SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dtbl = new DataTable("Login");
+            //Creates a new Data Table
+            DataTable dtbl = new DataTable("Parts");
+            //Fills the data adapter with the information in the data table
             da.Fill(dtbl);
 
-            if (dtbl.Rows.Count == 1) {
-                username = dtbl.Rows[0]["username"].ToString();
-                MRP = (bool)dtbl.Rows[0]["maintenanceRecordsPermission"];
-                ITRP = (bool)dtbl.Rows[0]["itRecordsPermissions"];
-                TP = (bool)dtbl.Rows[0]["teacherPermissions"];
-                AP = (bool)dtbl.Rows[0]["adminPermissions"];
-                SAP = (bool)dtbl.Rows[0]["superAdminPermission"];
-                CurrentUser.setPermissions(username, MRP, ITRP, TP, AP, SAP);
-                MainWindow mw = new MainWindow();
-                mw.Show();
-                this.Close();
-            }
-            else {
-                MessageBox.Show("Invalid Login");
-            }
-        }
-
-        private void BtnExit_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
+            //Sets the xaml data grid to display the data adapted table
+            dgLogins.ItemsSource = dtbl.DefaultView;
         }
     }
 }

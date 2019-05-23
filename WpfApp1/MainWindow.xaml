@@ -33,6 +33,9 @@
                 <Separator />
                 <MenuItem Header="_Exit" />
             </MenuItem>
+            <MenuItem Header="Options">
+                <MenuItem Header="Modify Logins" Click="OptionsModifyLogin_Click"/>
+            </MenuItem>
 
         </Menu>
 

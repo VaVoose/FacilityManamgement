@@ -26,6 +26,7 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+            Console.WriteLine(CurrentUser.getUsername() + CurrentUser.getMRP() + CurrentUser.getITRP() + CurrentUser.getTP() + CurrentUser.getAP() + CurrentUser.getSAP());
         }
 
         // This overrides the red 'X' button to shutdown the application without having to close the previous window
@@ -77,6 +78,12 @@ namespace WpfApp1
             zw.Owner = this;
             //this.Hide();
             zw.Show();
+        }
+
+        private void OptionsModifyLogin_Click(object sender, RoutedEventArgs e)
+        {
+            ModifyLoginWindow mlw = new ModifyLoginWindow();
+            mlw.ShowDialog();
         }
     }
 }

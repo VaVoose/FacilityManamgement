@@ -61,11 +61,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CurrentUser.cs" />
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModifyLoginWindow.xaml.cs">
+      <DependentUpon>ModifyLoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ZoneWindow.xaml.cs">
       <DependentUpon>ZoneWindow.xaml</DependentUpon>
@@ -87,6 +91,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModifyLoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

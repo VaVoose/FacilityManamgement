@@ -19,13 +19,21 @@
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="67*"/>
+                        <ColumnDefinition Width="126*"/>
+                        <ColumnDefinition Width="193*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="lblPassword" Content="Password:" Grid.Column="0" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="txtPassword" Grid.ColumnSpan="3" Margin="76,0,0,0"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Label x:Name="lblPassword" Content="Password:" Grid.Column="0"/>
-                    <TextBox x:Name="txtPassword" Grid.ColumnSpan="2" Margin="76,0,0,0"/>
+                    <Button x:Name="btnLogin" Content="Login" Click="BtnLogin_Click" Grid.Column="0"/>
+                    <Button x:Name="btnExit" Content="Exit" Click="BtnExit_Click" Grid.Column="1"/>
                 </Grid>
-                <Button x:Name="btnLogin" Content="Login" Click="BtnLogin_Click"/>
             </StackPanel>
         </Grid>
     </Border>

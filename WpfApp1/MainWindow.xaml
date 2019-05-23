@@ -9,50 +9,62 @@
 
 
     <Grid>
-        <DockPanel>
-            <Menu DockPanel.Dock="Top" Grid.Row="0">
 
-                <MenuItem Header="_File">
-                    <MenuItem Header="_New" Click="FileNewClick" />
-                    <MenuItem Header="_Open" Click="FileOpenClick" />
-                    <MenuItem Header="_Save" Click="ToolsModifyClick"/>
-                    <Separator />
-                    <MenuItem Header="_Exit" Click="FileExitClick" />
-                </MenuItem>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <Menu DockPanel.Dock="Top" Grid.Row="0">
+
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" Click="FileNewClick" />
+                <MenuItem Header="_Open" Click="FileOpenClick" />
+                <MenuItem Header="_Save" Click="ToolsModifyClick"/>
+                <Separator />
+                <MenuItem Header="_Exit" Click="FileExitClick" />
+            </MenuItem>
                 
-                <MenuItem Header="_Tools">
-                    <MenuItem Header="Modify Zoning" Click="ToolsModifyClick" />
-                    <MenuItem Header="_Change Blueprint" Click="ToolsBlueprintClick"/>
-                    <MenuItem Header="_Save" Click="ToolsSaveClick" />
-                    <Separator />
-                    <MenuItem Header="_Exit" />
-                </MenuItem>
+            <MenuItem Header="_Tools">
+                <MenuItem Header="Modify Zoning" Click="ToolsModifyClick" />
+                <MenuItem Header="_Change Blueprint" Click="ToolsBlueprintClick"/>
+                <MenuItem Header="_Save" Click="ToolsSaveClick" />
+                <Separator />
+                <MenuItem Header="_Exit" />
+            </MenuItem>
 
-                <MenuItem Header="_Zoning">
-                    <MenuItem Header="_Electrical" Click="ZoningElectricalClick" />
-                    <MenuItem Header="_Plumbing" Click="ZoningPlumbingClick" />
-                    <MenuItem Header="_HVAC" Click="ZoningHVACClick" />
-                    <MenuItem Header="_Janitorial" Click="ZoningJanitorialClick" />
-                    <Separator />
-                    <MenuItem Header="_Exit" Click="ZoningExitClick" />
-                </MenuItem>
+            <MenuItem Header="_Zoning">
+                <MenuItem Header="_Electrical" Click="ZoningElectricalClick" />
+                <MenuItem Header="_Plumbing" Click="ZoningPlumbingClick" />
+                <MenuItem Header="_HVAC" Click="ZoningHVACClick" />
+                <MenuItem Header="_Janitorial" Click="ZoningJanitorialClick" />
+                <Separator />
+                <MenuItem Header="_Exit" Click="ZoningExitClick" />
+            </MenuItem>
 
-            </Menu>
+        </Menu>
 
-            <Button Grid.Row="1" Grid.Column="1">
+
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="1" Grid.Column="0">
                 <Label Content="Reporting" />
             </Button>
 
-            <Button Grid.Row="1" Grid.Column="2">
+            <Button Grid.Row="1" Grid.Column="1">
                 <Label Content="Equipment Records" />
             </Button>
+        </Grid>
 
 
-            <Button x:Name="btnTest" Click="BtnTest_Click" Grid.Row="2">
-                <Image x:Name="imgBlueprint" Margin="10,10"  Source="Images/Blueprint.png" Stretch="Fill"/>
-            </Button>
-
-        </DockPanel>
+        <Button x:Name="btnTest" Click="BtnTest_Click" Grid.Row="2">
+            <Image x:Name="imgBlueprint" Margin="10,10"  Source="Images/Blueprint.png" Stretch="Fill"/>
+        </Button>
     </Grid>
     
 </Window>

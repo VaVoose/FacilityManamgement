@@ -97,6 +97,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
+                <!--This is for dom's poopy error-->
                 <Button x:Name="btnSubmit" Grid.Column="0" Click="BtnSubmit_Click">
                     <Label Content="Submit"/>
                 </Button>

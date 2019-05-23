@@ -72,7 +72,7 @@ namespace WpfApp1
             {
                 try
                 {
-                    S
+            
                     sqlCon.Open();
 
                     break;

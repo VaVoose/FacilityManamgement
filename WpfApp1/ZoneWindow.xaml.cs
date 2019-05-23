@@ -68,24 +68,15 @@ namespace WpfApp1
             System.Windows.Forms.MessageBox.Show("Connecting to Database...");
 
             int retries = 0;
-            while (true)
-            {
-                try
-                {
-            
+            while (true) {
+                try {
                     sqlCon.Open();
-
                     break;
-
                 }
-                catch (System.Data.SqlClient.SqlException)
-                {
+                catch (System.Data.SqlClient.SqlException) {
                     if (++retries == 3) throw;
-
                     System.Windows.Forms.MessageBox.Show("Connection Failed. Retry iteration " + (retries));
-
                     sqlCon.Close();
-
                     continue;
                 }
             }

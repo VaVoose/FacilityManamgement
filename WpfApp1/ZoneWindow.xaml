@@ -46,7 +46,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Button x:Name="btnSubmit" Grid.Column="0" Click="BtnSubmit_Click">
-                        <Label Content="Submit"/>
+                        <Label Content="Submit Text"/>
                     </Button>
                     <Button x:Name="btnClear" Grid.Column="1">
                         <Label Content="Clear"/>

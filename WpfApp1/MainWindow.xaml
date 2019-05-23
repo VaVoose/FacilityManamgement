@@ -25,22 +25,13 @@
                 <Separator />
                 <MenuItem Header="_Exit" Click="FileExitClick" />
             </MenuItem>
-                
+
             <MenuItem Header="_Tools">
                 <MenuItem Header="Modify Zoning" Click="ToolsModifyClick" />
                 <MenuItem Header="_Change Blueprint" Click="ToolsBlueprintClick"/>
                 <MenuItem Header="_Save" Click="ToolsSaveClick" />
                 <Separator />
                 <MenuItem Header="_Exit" />
-            </MenuItem>
-
-            <MenuItem Header="_Zoning">
-                <MenuItem Header="_Electrical" Click="ZoningElectricalClick" />
-                <MenuItem Header="_Plumbing" Click="ZoningPlumbingClick" />
-                <MenuItem Header="_HVAC" Click="ZoningHVACClick" />
-                <MenuItem Header="_Janitorial" Click="ZoningJanitorialClick" />
-                <Separator />
-                <MenuItem Header="_Exit" Click="ZoningExitClick" />
             </MenuItem>
 
         </Menu>
@@ -51,14 +42,19 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
-            <Button Grid.Row="1" Grid.Column="0">
+            <Button Grid.Column="0">
                 <Label Content="Reporting" />
             </Button>
 
-            <Button Grid.Row="1" Grid.Column="1">
+            <Button Grid.Column="1">
                 <Label Content="Equipment Records" />
+            </Button>
+
+            <Button Grid.Column="2">
+                <Label Content="Calendar"/>
             </Button>
             
         </Grid>

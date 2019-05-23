@@ -71,31 +71,6 @@ namespace WpfApp1
 
         }
 
-        private void ZoningElectricalClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ZoningPlumbingClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ZoningHVACClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ZoningJanitorialClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ZoningExitClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void BtnTest_Click(object sender, RoutedEventArgs e)
         {
             ZoneWindow zw = new ZoneWindow(1);

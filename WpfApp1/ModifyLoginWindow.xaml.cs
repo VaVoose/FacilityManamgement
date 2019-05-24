@@ -25,7 +25,25 @@ namespace WpfApp1
         public ModifyLoginWindow()
         {
             InitializeComponent();
+            setUseableColumns();
             bindDataGrid();
+        }
+
+        // Gets the info from CurrentUser and sets the ability to change the data table based on the users permissions
+        private void setUseableColumns() {
+            // Can be set visible or read only not sure which on at this time
+            // Admin users can change permissions of all other groups exept other admin possitions
+            // Super Admin user can change admin permissions as well
+            if (CurrentUser.getAP()) {
+                dgtcMRP.Visibility = Visibility.Visible;
+                dgtcITRP.Visibility = Visibility.Visible;
+                dgtcTP.Visibility = Visibility.Visible;
+            }
+            if (CurrentUser.getSAP()) {
+                dgtcAP.Visibility = Visibility.Visible;
+                dgLogins.CanUserAddRows = true;
+                dgtcUsername.IsReadOnly = false;
+            }
         }
 
         private void bindDataGrid()
@@ -35,8 +53,6 @@ namespace WpfApp1
             //Sets the connection string to point to the master connection set in "App.config"
             sqlCon.ConnectionString = ConfigurationManager.ConnectionStrings["masterConnection"].ConnectionString;
             sqlCon.ConnectionString += ";Connection Timeout=30";
-
-            System.Windows.Forms.MessageBox.Show("Connecting to Database...");
 
             int retries = 0;
             while (true)
@@ -59,8 +75,9 @@ namespace WpfApp1
             SqlCommand cmd = new SqlCommand();
             //This is where you write your query to populate the table
             //You can write any kind of query here
-            cmd.CommandText = "SELECT * FROM [login]";
-            //Sets the commands connectio
+            if (CurrentUser.getAP() || CurrentUser.getSAP()) cmd.CommandText = "SELECT * FROM [login]";
+            else cmd.CommandText = "SELECT * FROM [login] WHERE username='" + CurrentUser.getUsername() + "'";
+            //Sets the commands connection
             cmd.Connection = sqlCon;
 
             //Creates a new SQL Data Adapter (not sure what this does)
@@ -72,6 +89,31 @@ namespace WpfApp1
 
             //Sets the xaml data grid to display the data adapted table
             dgLogins.ItemsSource = dtbl.DefaultView;
+        }
+
+        private void BtnAddUser_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
+        {
+            //Instantiates a Connection String
+            SqlConnection sqlCon = new SqlConnection();
+            //Sets the connection string to point to the master connection set in "App.config"
+            sqlCon.ConnectionString = ConfigurationManager.ConnectionStrings["masterConnection"].ConnectionString;
+            sqlCon.Open();
+            //Instantiates a new sql command string
+            SqlCommand cmd = new SqlCommand();
+            DataRowView rowSelected = dgLogins.SelectedItem as DataRowView;
+            string strSelectedUsername = rowSelected["ID"].ToString();
+            //This is where you write your query to populate the table
+            //You can write any kind of query here
+            cmd.CommandText = "DELETE FROM [login] WHERE ID = " + strSelectedUsername;
+            //Sets the commands connection
+            cmd.Connection = sqlCon;
+            cmd.ExecuteNonQuery();
+            bindDataGrid();
         }
     }
 }

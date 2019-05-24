@@ -5,20 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="Modify Logins" Height="450" Width="800">
+        Title="Modify Logins" Height="492.994" Width="800">
     <Grid>
-        <DataGrid x:Name="dgLogins" Grid.Column="0" HorizontalAlignment="Center" Height="379" Margin="10,10" VerticalAlignment="Top" AutoGenerateColumns="False" Background="LightGray">
-            <!--Column Header Text and Bindings-->
-            <DataGrid.Columns>
-                <!--The Binding part works like this Binding = {Binding (column in the table that you want to see)}-->
-                <DataGridTextColumn x:Name="dgtcUsername" Header="Username" Binding="{Binding username}" Width="*"/>
-                <DataGridTextColumn x:Name="dgtcPassword" Header="Password" Binding="{Binding password}" Width="*"/>
-                <DataGridTextColumn x:Name="dgtcMRP" Header="Maintenance Perm." Binding="{Binding maintenanceRecordsPermission}" Width="*"/>
-                <DataGridTextColumn x:Name="dgtcITRP" Header="IT Perm." Binding="{Binding itRecordsPermissions}" Width="*"/>
-                <DataGridTextColumn x:Name="dgtcTP" Header="Teacher Perm." Binding="{Binding teacherPermissions}" Width="*"/>
-                <DataGridTextColumn x:Name="dgtcAP" Header="Admin Perm." Binding="{Binding adminPermissions}" Width="*"/>
-            </DataGrid.Columns>
-        </DataGrid>
-
+        <StackPanel>
+            <DataGrid x:Name="dgLogins" Grid.Column="0" HorizontalAlignment="Center" Height="379" Margin="10,10" VerticalAlignment="Top" AutoGenerateColumns="False" Background="LightGray" CanUserAddRows="False">
+                <!--Column Header Text and Bindings-->
+                <DataGrid.Columns>
+                    <!--The Binding part works like this Binding = {Binding (column in the table that you want to see)}-->
+                    <DataGridTextColumn x:Name="dgtcUsername" Header="Username" Binding="{Binding username}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn x:Name="dgtcPassword" Header="Password" Binding="{Binding password}" Width="*"/>
+                    <DataGridCheckBoxColumn x:Name="dgtcMRP" Header="Maintenance Perm." Binding="{Binding maintenanceRecordsPermission}" Width="*" Visibility="Hidden"/>
+                    <DataGridCheckBoxColumn x:Name="dgtcITRP" Header="IT Perm." Binding="{Binding itRecordsPermissions}" Width="*" Visibility="Hidden"/>
+                    <DataGridCheckBoxColumn x:Name="dgtcTP" Header="Teacher Perm." Binding="{Binding teacherPermissions}" Width="*" Visibility="Hidden"/>
+                    <DataGridCheckBoxColumn x:Name="dgtcAP" Header="Admin Perm." Binding="{Binding adminPermissions}" Width="*" Visibility="Hidden"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="btnAddUser" Content="Add User" Grid.Column="0" Click="BtnAddUser_Click"/>
+                <Button x:Name="btnDeleteUser" Content="Delete User" Grid.Column="1" Click="BtnDeleteUser_Click"/>
+            </Grid>
+        </StackPanel>
     </Grid>
 </Window>

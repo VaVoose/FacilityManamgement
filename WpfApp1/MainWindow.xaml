@@ -34,7 +34,8 @@
                 <MenuItem Header="_Exit" />
             </MenuItem>
             <MenuItem Header="Options">
-                <MenuItem Header="Modify Logins" Click="OptionsModifyLogin_Click"/>
+                <MenuItem x:Name="miLogOut" Header="Log Out" Click="OptionsLogOut_Click"/>
+                <MenuItem x:Name="miModifyLogins" Header="Modify Logins" Click="OptionsModifyLogin_Click"/>
             </MenuItem>
 
         </Menu>

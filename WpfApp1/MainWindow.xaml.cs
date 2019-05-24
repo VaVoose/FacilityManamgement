@@ -31,11 +31,12 @@ namespace WpfApp1
 
         // This overrides the red 'X' button to shutdown the application without having to close the previous window
         // This should be in every windows code
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-            Application.Current.Shutdown();
-        }
+        // This does not work because it runs when the window is closed but when logging out the window needs to be closed because the user permissions are cleared
+        //protected override void OnClosed(EventArgs e)
+        //{
+        //    base.OnClosed(e);
+        //    Application.Current.Shutdown();
+        //}
 
         private void FileNewClick(object sender, RoutedEventArgs e)
         {
@@ -76,7 +77,6 @@ namespace WpfApp1
         {
             ZoneWindow zw = new ZoneWindow(1);
             zw.Owner = this;
-            //this.Hide();
             zw.Show();
         }
 
@@ -84,6 +84,14 @@ namespace WpfApp1
         {
             ModifyLoginWindow mlw = new ModifyLoginWindow();
             mlw.ShowDialog();
+        }
+
+        private void OptionsLogOut_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentUser.clearUser();
+            LoginWindow lw = new LoginWindow();
+            lw.Show();
+            this.Close();
         }
     }
 }

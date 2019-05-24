@@ -24,6 +24,16 @@ namespace WpfApp1
             SAP = s;
         }
 
+        static public void clearUser() {
+            username = null;
+            MRP = false;
+            ITRP = false;
+            TP = false;
+            AP = false;
+            SAP = false;
+
+        }
+
         static public string getUsername() {
             return username;
         }

@@ -38,7 +38,7 @@
             />
 
         <!--Make sure that AutoGenerateColumn is set to false otherwise it will double populate the table-->
-        <DataGrid x:Name="dgParts" Grid.Column="0" HorizontalAlignment="Center" Height="379" Margin="10,10" VerticalAlignment="Top" AutoGenerateColumns="False" SelectionChanged="DgParts_SelectionChanged" Background="LightGray">
+        <DataGrid x:Name="dgParts" Grid.Column="0" HorizontalAlignment="Center" Height="379" Margin="10,10" VerticalAlignment="Top" AutoGenerateColumns="False" SelectionChanged="DgParts_SelectionChanged" Background="LightGray" CanUserAddRows="False">
             <!--Column Header Text and Bindings-->
             <DataGrid.Columns>
                 <!--The Binding part works like this Binding = {Binding (column in the table that you want to see)}-->
@@ -70,7 +70,7 @@
                 
                 />
 
-            <ListView x:Name="lvDetails" Grid.Row="3" Background="LightGray">
+            <ListView x:Name="lvDetails" Grid.Row="3" Background="LightGray" >
 
                 <ListView.View>
 

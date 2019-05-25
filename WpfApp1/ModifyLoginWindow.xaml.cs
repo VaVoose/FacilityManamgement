@@ -91,6 +91,7 @@ namespace WpfApp1
 
             //Sets the xaml data grid to display the data adapted table
             dgLogins.ItemsSource = dtbl.DefaultView;
+            sqlCon.Close();
         }
 
         private void BtnAddUser_Click(object sender, RoutedEventArgs e)
@@ -134,15 +135,11 @@ namespace WpfApp1
             else {
                 MessageBox.Show("Deletion Canceled");
             }
-            //Sets the commands connection
-
+            sqlCon.Close();
         }
-
-        
 
         private void DgLogins_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
-            
             DataGrid gd = (DataGrid)sender;
             ////Gets all the data from the row that is selected
             DataRowView row_Selected = gd.SelectedItem as DataRowView;
@@ -170,7 +167,6 @@ namespace WpfApp1
             cmd.Parameters.AddWithValue("@ITRP", 1);
             cmd.Parameters.AddWithValue("@TP", 0);
             cmd.Parameters.AddWithValue("@AP", 0);
-            cmd.Parameters.AddWithValue("@SAP", 0);
 
             // ---------- On the other hand this should work but everytime I try to use the current selected rows values everything returns null
 
@@ -184,6 +180,7 @@ namespace WpfApp1
             // This statement prints all of the parameters values (guess what? they return null and I dont know how to fix it)
             Console.WriteLine(row_Selected["username"].ToString() + row_Selected["password"].ToString() + row_Selected["maintenanceRecordsPermission"] + row_Selected["itRecordsPermissions"] + row_Selected["teacherPermissions"] + row_Selected["adminPermissions"]);
             cmd.ExecuteNonQuery();
+            sqlCon.Close();
         }
 
         private void DgLogins_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -78,6 +78,7 @@ namespace WpfApp1
                 //Open the mainwindow and close the log in window
                 MainWindow mw = new MainWindow();
                 mw.Show();
+                sqlCon.Close();
                 this.Close();
             }
             else {

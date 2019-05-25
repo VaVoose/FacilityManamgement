@@ -99,6 +99,7 @@ namespace WpfApp1
 
             //Sets the xaml data grid to display the data adapted table
             dgParts.ItemsSource = dtbl.DefaultView;
+            sqlCon.Close();
         }
 
         // This function updates when a new row is selected from the data grid
@@ -156,6 +157,7 @@ namespace WpfApp1
             else {
                 imgPartPic.Source = null;
             }
+            sqlCon.Close();
         }
 
         //Converts the byte array of an image stored in the database and converts it to a wpf image source
@@ -224,6 +226,7 @@ namespace WpfApp1
             sqlCmdAddImage.Parameters.AddWithValue("@image", imageByteArray);
 
             sqlCmdAddImage.ExecuteNonQuery();
+            sqlCon.Close();
         }
     }
 }

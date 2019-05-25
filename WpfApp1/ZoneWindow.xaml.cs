@@ -141,7 +141,38 @@ namespace WpfApp1
             //Sets the xaml data grid to display the data adapted table
             lvDetails.ItemsSource = dtbl.DefaultView;
             gvcType.DisplayMemberBinding = new Binding("ID");
-            gvcText.DisplayMemberBinding = new Binding("documentText");  
+            gvcText.DisplayMemberBinding = new Binding("documentText");
+
+            //Setting the imgPartPic to be the image assigned to the part
+            //If there is an image for the part
+            if (row_selected["image"] != DBNull.Value)
+            {
+                //Get the byte array of the part
+                byte[] imageArray = (byte[])row_selected["image"];
+                //TODO - Set the part to the image
+                BitmapImage partImage = ConvertImageByteToImage(imageArray);
+                imgPartPic.Source = partImage;
+            }
+            else {
+                imgPartPic.Source = null;
+            }
+        }
+
+        //Converts the byte array of an image stored in the database and converts it to a wpf image source
+        private BitmapImage ConvertImageByteToImage(byte[] imageArray) {
+            var image = new BitmapImage();
+            using (var mem = new MemoryStream(imageArray))
+            {
+                mem.Position = 0;
+                image.BeginInit();
+                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = null;
+                image.StreamSource = mem;
+                image.EndInit();
+            }
+            image.Freeze();
+            return image;
         }
 
         //Opens dialog box to select a picture to be added
@@ -161,10 +192,7 @@ namespace WpfApp1
 
         }
 
-        //
-        // Image submit functionallity currently does not work
-        // Possibly to be completely reworked
-        //
+        // Stores the selected image in binary format to the database
         private void BtnSubmitPic_Click(object sender, RoutedEventArgs e)
         {
             // ------ 
@@ -187,12 +215,13 @@ namespace WpfApp1
             SqlCommand sqlCmdAddImage = new SqlCommand("sp_ImageAddOrEdit", sqlCon) { CommandType = CommandType.StoredProcedure };
             DataRowView rowSelected = dgParts.SelectedItem as DataRowView;
             string strCurrentRowID = rowSelected["ID"].ToString();
-            foreach (int i in imageByteArray)
-            {
-                Console.Write(imageByteArray[i]);
-            }
-            sqlCmdAddImage.Parameters.Add("@ID", strCurrentRowID);
-            sqlCmdAddImage.Parameters.Add("@image", imageByteArray);
+            //Prints bytearray for debug purposes
+            //foreach (int i in imageByteArray)
+            //{
+            //    Console.Write(imageByteArray[i]);
+            //}
+            sqlCmdAddImage.Parameters.AddWithValue("@ID", strCurrentRowID);
+            sqlCmdAddImage.Parameters.AddWithValue("@image", imageByteArray);
 
             sqlCmdAddImage.ExecuteNonQuery();
         }

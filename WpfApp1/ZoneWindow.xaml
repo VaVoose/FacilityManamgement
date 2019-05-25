@@ -59,7 +59,7 @@
 
             <TextBox x:Name="txtTest" Text=" This is a test" FontSize="25" Grid.Row="0" Background="LightGray" />
 
-            <Image x:Name="imgPartPic" Height="100" Grid.Row="1"/>
+            <Image x:Name="imgPartPic" Height="100" Grid.Row="1" />
 
             <GridSplitter
                 

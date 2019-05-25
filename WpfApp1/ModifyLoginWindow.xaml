@@ -8,7 +8,7 @@
         Title="Modify Logins" Height="492.994" Width="800">
     <Grid>
         <StackPanel>
-            <DataGrid x:Name="dgLogins" Grid.Column="0" HorizontalAlignment="Center" Height="379" Margin="10,10" VerticalAlignment="Top" AutoGenerateColumns="False" Background="LightGray" CanUserAddRows="False">
+            <DataGrid x:Name="dgLogins" Grid.Column="0" HorizontalAlignment="Center" Height="379" Margin="10,10" VerticalAlignment="Top" AutoGenerateColumns="False" Background="LightGray" CanUserAddRows="False" RowEditEnding="DgLogins_RowEditEnding" SelectionChanged="DgLogins_SelectionChanged">
                 <!--Column Header Text and Bindings-->
                 <DataGrid.Columns>
                     <!--The Binding part works like this Binding = {Binding (column in the table that you want to see)}-->
@@ -25,7 +25,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="btnAddUser" Content="Add User" Grid.Column="0" Click="BtnAddUser_Click"/>
+                <Button x:Name="btnAddUser" Content="Add Users" Grid.Column="0" Click="BtnAddUser_Click"/>
                 <Button x:Name="btnDeleteUser" Content="Delete User" Grid.Column="1" Click="BtnDeleteUser_Click"/>
             </Grid>
         </StackPanel>

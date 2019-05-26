@@ -23,7 +23,7 @@ namespace WpfApp1
     public partial class ModifyLoginWindow : Window
     {
         private bool isUserBeingAdded = false;
-        DataGridRow pimpDaddy;
+        //DataGridRow pimpDaddy;
 
         public ModifyLoginWindow()
         {
@@ -77,8 +77,11 @@ namespace WpfApp1
             SqlCommand cmd = new SqlCommand();
             //This is where you write your query to populate the table
             //You can write any kind of query here
+
+            // Take a look at this query later, OK for primary injection, but could be suceptable to secondary sql injection specifically the ELSE statement in this IF
             if (CurrentUser.getAP() || CurrentUser.getSAP()) cmd.CommandText = "SELECT * FROM [login]";
             else cmd.CommandText = "SELECT * FROM [login] WHERE username='" + CurrentUser.getUsername() + "'";
+
             //Sets the commands connection
             cmd.Connection = sqlCon;
 
@@ -105,9 +108,6 @@ namespace WpfApp1
             else {
                 isUserBeingAdded = false;
                 dgLogins.CanUserAddRows = false;
-                //foreach (DataGridViewRow row in DataGridView.Rows) {
-
-                //}
                 btnAddUser.Content = "Add Users";
             }
         }
@@ -126,6 +126,8 @@ namespace WpfApp1
             string strSelectedUsername = rowSelected["username"].ToString();
             //This is where you write your query to populate the table
             //You can write any kind of query here
+            //Delete statements are OK for security, and its useing the ID to delete which is database created
+            //Could potentially be a stored proc but i dont see the need as of now
             cmd.CommandText = "DELETE FROM [login] WHERE ID = " + strSelectedID;
             cmd.Connection = sqlCon;
             if (MessageBox.Show("Are you sure you want to delete user " + strSelectedUsername + "?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
@@ -150,26 +152,19 @@ namespace WpfApp1
             sqlCon.ConnectionString = ConfigurationManager.ConnectionStrings["masterConnection"].ConnectionString;
             sqlCon.Open();
             //Instantiates a new sql command string
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = sqlCon;
+            SqlCommand cmd = new SqlCommand("sp_AddOrEditLoginPermissions", sqlCon) { CommandType = CommandType.StoredProcedure }; ;
             //DataRowView row_Selected = dgLogins.SelectedItem as DataRowView;
             DataRowView rowAdded = dgLogins.CurrentItem as DataRowView;
-            //This is where you write your query to populate the table
-            //You can write any kind of query here
 
-            /// ------------ This needs to be made into a stored procedure for security reasons ------------ // 
-            cmd.CommandText = "INSERT INTO [login] (username, password, maintenanceRecordsPermission, itRecordsPermissions, teacherPermissions, adminPermissions, superAdminPermission) VALUES(@username, @password, @MRP, @ITRP, @TP, @AP, @SAP)";
-
-            // -------- These Parameters work so it proves that parameters and the sqlcommand is working correctly //
-            cmd.Parameters.AddWithValue("@username", "ytestParams");
-            cmd.Parameters.AddWithValue("@password", "yolo");
+            // -------- These Parameters work so it proves that parameters and the sql command is working correctly //
+            cmd.Parameters.AddWithValue("@username", "sp");
+            cmd.Parameters.AddWithValue("@password", "sp");
             cmd.Parameters.AddWithValue("@MRP", true);
             cmd.Parameters.AddWithValue("@ITRP", 1);
             cmd.Parameters.AddWithValue("@TP", 0);
             cmd.Parameters.AddWithValue("@AP", 0);
 
             // ---------- On the other hand this should work but everytime I try to use the current selected rows values everything returns null
-
             //cmd.Parameters.AddWithValue("@username", row_Selected["username"].ToString());
             //cmd.Parameters.AddWithValue("@password", row_Selected["password"].ToString());
             //cmd.Parameters.AddWithValue("@MRP", row_Selected["maintenanceRecordsPermission"]);
@@ -179,6 +174,7 @@ namespace WpfApp1
 
             // This statement prints all of the parameters values (guess what? they return null and I dont know how to fix it)
             Console.WriteLine(row_Selected["username"].ToString() + row_Selected["password"].ToString() + row_Selected["maintenanceRecordsPermission"] + row_Selected["itRecordsPermissions"] + row_Selected["teacherPermissions"] + row_Selected["adminPermissions"]);
+
             cmd.ExecuteNonQuery();
             sqlCon.Close();
         }

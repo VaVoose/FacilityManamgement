@@ -55,10 +55,16 @@ namespace WpfApp1
             }
 
             //Instantiates a new sql command string
-            SqlCommand cmd = new SqlCommand();
+            // SQL command using a stored proc
+            SqlCommand cmd = new SqlCommand("sp_loginCredentials", sqlCon) { CommandType = CommandType.StoredProcedure };
+            cmd.Parameters.AddWithValue("@username", txtUsername.Text.Trim());
+            cmd.Parameters.AddWithValue("@password", txtPassword.Text.Trim());
+
+            // -------- Following is poopy code that should not be used, this is EASILY Suseptable to SQL Injection --------- //
             //This is where you write your query to populate the table
             //You can write any kind of query here
-            cmd.CommandText = "SELECT * FROM [login] WHERE username = '" + txtUsername.Text.Trim() + "' AND password = '" + txtPassword.Text.Trim() + "'";
+            //cmd.CommandText = "SELECT * FROM [login] WHERE username = '" + txtUsername.Text.Trim() + "' AND password = '" + txtPassword.Text.Trim() + "'";
+
             //Sets the commands connection
             cmd.Connection = sqlCon;
             // Creates a data adapter and a data table and fills it

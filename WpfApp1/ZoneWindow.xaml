@@ -86,6 +86,8 @@
         <StackPanel x:Name="spnlAddNewInfo" Margin="10,10" Grid.Column="2">
 
             <Label Content="Add new info here" Background="LightGray"/>
+            <Button x:Name="btnAddDocument" Content="Add Document" Click="BtnAddDocument_Click" />
+            <Label x:Name="lblDocumentName" Content="File Name" Background="LightGray"/>
 
             <TextBox x:Name="txtNewInfo" Height="200" BorderBrush="Black" BorderThickness="2"/>
 
@@ -98,6 +100,7 @@
                 </Grid.ColumnDefinitions>
 
                 <!--This is for dom's poopy error-->
+                <!-- What error? I dont make errors -dom -->
                 <Button x:Name="btnSubmit" Grid.Column="0" Click="BtnSubmit_Click">
                     <Label Content="Submit"/>
                 </Button>

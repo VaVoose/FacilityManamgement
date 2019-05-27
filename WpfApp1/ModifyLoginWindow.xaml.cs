@@ -140,9 +140,15 @@ namespace WpfApp1
             sqlCon.Close();
         }
 
+        // This function runs after the row edit has ended
+        // This is used for adding or editing users
+        // Currently there is no validation of data
+        // We need to make sure that there are no duplicate usernames added and that the usernames contain only 50 length string and no symbols like " ' "
+        // This kind of vetting should probably done in the stored proc or declared somewhere server side
         private void DgLogins_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
             DataGrid gd = (DataGrid)sender;
+            //Console.WriteLine(grdItem);
             ////Gets all the data from the row that is selected
             DataRowView row_Selected = gd.SelectedItem as DataRowView;
 
@@ -153,38 +159,34 @@ namespace WpfApp1
             sqlCon.Open();
             //Instantiates a new sql command string
             SqlCommand cmd = new SqlCommand("sp_AddOrEditLoginPermissions", sqlCon) { CommandType = CommandType.StoredProcedure }; ;
-            //DataRowView row_Selected = dgLogins.SelectedItem as DataRowView;
-            DataRowView rowAdded = dgLogins.CurrentItem as DataRowView;
 
-            // -------- These Parameters work so it proves that parameters and the sql command is working correctly //
-            cmd.Parameters.AddWithValue("@username", "sp");
-            cmd.Parameters.AddWithValue("@password", "sp");
-            cmd.Parameters.AddWithValue("@MRP", true);
-            cmd.Parameters.AddWithValue("@ITRP", 1);
-            cmd.Parameters.AddWithValue("@TP", 0);
-            cmd.Parameters.AddWithValue("@AP", 0);
+            //Sets parameters based on the new rows values
+            cmd.Parameters.AddWithValue("@ID", row_Selected["ID"]);
+            cmd.Parameters.AddWithValue("@username", row_Selected["username"].ToString());
+            cmd.Parameters.AddWithValue("@password", row_Selected["password"].ToString());
+            
+            // If the inputted value is null it returns false, this is needed because the default value when creating a new row is null
+            if (row_Selected["maintenanceRecordsPermission"] == DBNull.Value) cmd.Parameters.AddWithValue("@MRP", 0);
+            else cmd.Parameters.AddWithValue("@MRP", row_Selected["maintenanceRecordsPermission"]);
+            if (row_Selected["itRecordsPermissions"] == DBNull.Value) cmd.Parameters.AddWithValue("@ITRP", 0);
+            else cmd.Parameters.AddWithValue("@ITRP", row_Selected["itRecordsPermissions"]);
+            if (row_Selected["teacherPermissions"] == DBNull.Value) cmd.Parameters.AddWithValue("@TP", 0);
+            else cmd.Parameters.AddWithValue("@TP", row_Selected["teacherPermissions"]);
+            if (row_Selected["adminPermissions"] == DBNull.Value) cmd.Parameters.AddWithValue("@AP", 0);
+            else cmd.Parameters.AddWithValue("@AP", row_Selected["adminPermissions"]);
 
-            // ---------- On the other hand this should work but everytime I try to use the current selected rows values everything returns null
-            //cmd.Parameters.AddWithValue("@username", row_Selected["username"].ToString());
-            //cmd.Parameters.AddWithValue("@password", row_Selected["password"].ToString());
-            //cmd.Parameters.AddWithValue("@MRP", row_Selected["maintenanceRecordsPermission"]);
-            //cmd.Parameters.AddWithValue("@ITRP", row_Selected["itRecordsPermissions"]);
-            //cmd.Parameters.AddWithValue("@TP", row_Selected["teacherPermissions"]);
-            //cmd.Parameters.AddWithValue("@AP", row_Selected["adminPermissions"]);
-
-            // This statement prints all of the parameters values (guess what? they return null and I dont know how to fix it)
-            Console.WriteLine(row_Selected["username"].ToString() + row_Selected["password"].ToString() + row_Selected["maintenanceRecordsPermission"] + row_Selected["itRecordsPermissions"] + row_Selected["teacherPermissions"] + row_Selected["adminPermissions"]);
-
+            if (row_Selected["ID"] == null) {
+                MessageBox.Show("User added");
+            }
+            else {
+                MessageBox.Show("User Edited");
+            }
+            //This statement prints all of the parameters values for debug
+            //Console.WriteLine(row_Selected["ID"] + row_Selected["username"].ToString() + row_Selected["password"].ToString() + row_Selected["maintenanceRecordsPermission"] + row_Selected["itRecordsPermissions"] + row_Selected["teacherPermissions"] + row_Selected["adminPermissions"]);
             cmd.ExecuteNonQuery();
             sqlCon.Close();
-        }
-
-        private void DgLogins_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //DataGrid gd = (DataGrid)sender;
-            ////Gets all the data from the row that is selected
-            //pimpDaddy = gd.SelectedItem as DataRowView;
-            //DataGridRow dgr = gd.SelectedItem as DataGridRow;
+            //Rebinding the datagrid is needed because if the value is inputted as null is will continue to look like its null in the grid unless updated, then it will become false
+            bindDataGrid();
         }
     }
 }

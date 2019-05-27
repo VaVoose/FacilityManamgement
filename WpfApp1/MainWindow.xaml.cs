@@ -93,5 +93,12 @@ namespace WpfApp1
             lw.Show();
             this.Close();
         }
+
+        private void BtnCalendar_Click(object sender, RoutedEventArgs e)
+        {
+            MainMenu mm = new MainMenu();
+            mm.Owner = this;
+            mm.ShowDialog();
+        }
     }
 }

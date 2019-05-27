@@ -8,16 +8,16 @@
         Title="Modify Logins" Height="492.994" Width="800">
     <Grid>
         <StackPanel>
-            <DataGrid x:Name="dgLogins" Grid.Column="0" HorizontalAlignment="Center" Height="379" Margin="10,10" VerticalAlignment="Top" AutoGenerateColumns="False" Background="LightGray" CanUserAddRows="False" RowEditEnding="DgLogins_RowEditEnding" SelectionChanged="DgLogins_SelectionChanged">
+            <DataGrid x:Name="dgLogins" Grid.Column="0" HorizontalAlignment="Center" Height="379" Margin="10,10" VerticalAlignment="Top" AutoGenerateColumns="False" Background="LightGray" CanUserAddRows="False" RowEditEnding="DgLogins_RowEditEnding">
                 <!--Column Header Text and Bindings-->
                 <DataGrid.Columns>
                     <!--The Binding part works like this Binding = {Binding (column in the table that you want to see)}-->
-                    <DataGridTextColumn x:Name="dgtcUsername" Header="Username" Binding="{Binding username}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn x:Name="dgtcPassword" Header="Password" Binding="{Binding password}" Width="*"/>
-                    <DataGridCheckBoxColumn x:Name="dgtcMRP" Header="Maintenance Perm." Binding="{Binding maintenanceRecordsPermission}" Width="*" Visibility="Hidden"/>
-                    <DataGridCheckBoxColumn x:Name="dgtcITRP" Header="IT Perm." Binding="{Binding itRecordsPermissions}" Width="*" Visibility="Hidden"/>
-                    <DataGridCheckBoxColumn x:Name="dgtcTP" Header="Teacher Perm." Binding="{Binding teacherPermissions}" Width="*" Visibility="Hidden"/>
-                    <DataGridCheckBoxColumn x:Name="dgtcAP" Header="Admin Perm." Binding="{Binding adminPermissions}" Width="*" Visibility="Hidden"/>
+                    <DataGridTextColumn x:Name="dgtcUsername" Header="Username" Binding="{Binding username, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn x:Name="dgtcPassword" Header="Password" Binding="{Binding password, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                    <DataGridCheckBoxColumn x:Name="dgtcMRP" Header="Maintenance Perm." Binding="{Binding maintenanceRecordsPermission, UpdateSourceTrigger=PropertyChanged}" Width="*" Visibility="Hidden"/>
+                    <DataGridCheckBoxColumn x:Name="dgtcITRP" Header="IT Perm." Binding="{Binding itRecordsPermissions, UpdateSourceTrigger=PropertyChanged}" Width="*" Visibility="Hidden"/>
+                    <DataGridCheckBoxColumn x:Name="dgtcTP" Header="Teacher Perm." Binding="{Binding teacherPermissions, UpdateSourceTrigger=PropertyChanged}" Width="*" Visibility="Hidden"/>
+                    <DataGridCheckBoxColumn x:Name="dgtcAP" Header="Admin Perm." Binding="{Binding adminPermissions, UpdateSourceTrigger=PropertyChanged}" Width="*" Visibility="Hidden"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Grid>

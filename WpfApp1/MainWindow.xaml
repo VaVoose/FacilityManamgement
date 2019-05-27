@@ -49,15 +49,15 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
-            <Button Grid.Column="0">
+            <Button x:Name="btnReporting" Grid.Column="0">
                 <Label Content="Reporting" />
             </Button>
 
-            <Button Grid.Column="1">
+            <Button x:Name="btnRecords" Grid.Column="1">
                 <Label Content="Equipment Records" />
             </Button>
 
-            <Button Grid.Column="2">
+            <Button x:Name="btnCalendar" Grid.Column="2" Click="BtnCalendar_Click">
                 <Label Content="Calendar"/>
             </Button>
             

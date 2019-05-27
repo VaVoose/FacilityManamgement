@@ -51,11 +51,12 @@ namespace WpfApp1
 
         // This overrides the red 'X' button to shutdown the application without having to close the previous window
         // This should be in every windows code
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-            Application.Current.Shutdown();
-        }
+        // This should not be used here since the user may want to have multiple windows open with different zones on them so closing out of one will exit the whole program
+        //protected override void OnClosed(EventArgs e)
+        //{
+        //    base.OnClosed(e);
+        //    Application.Current.Shutdown();
+        //}
 
         // -------------This is an example of how to bind data to a data grid --------------- //
         // -------------                  Use it for reference                --------------- //

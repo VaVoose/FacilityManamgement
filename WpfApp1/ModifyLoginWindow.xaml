@@ -14,6 +14,8 @@
                     <!--The Binding part works like this Binding = {Binding (column in the table that you want to see)}-->
                     <DataGridTextColumn x:Name="dgtcUsername" Header="Username" Binding="{Binding username, UpdateSourceTrigger=PropertyChanged}" Width="*" IsReadOnly="True"/>
                     <DataGridTextColumn x:Name="dgtcPassword" Header="Password" Binding="{Binding password, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                    <DataGridTextColumn x:Name="dgtcfirst" Header="First" Binding="{Binding firstName, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                    <DataGridTextColumn x:Name="dgtclast" Header="Last" Binding="{Binding lastName, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
                     <DataGridCheckBoxColumn x:Name="dgtcMRP" Header="Maintenance Perm." Binding="{Binding maintenanceRecordsPermission, UpdateSourceTrigger=PropertyChanged}" Width="*" Visibility="Hidden"/>
                     <DataGridCheckBoxColumn x:Name="dgtcITRP" Header="IT Perm." Binding="{Binding itRecordsPermissions, UpdateSourceTrigger=PropertyChanged}" Width="*" Visibility="Hidden"/>
                     <DataGridCheckBoxColumn x:Name="dgtcTP" Header="Teacher Perm." Binding="{Binding teacherPermissions, UpdateSourceTrigger=PropertyChanged}" Width="*" Visibility="Hidden"/>

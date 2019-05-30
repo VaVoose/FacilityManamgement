@@ -18,37 +18,19 @@ using System.Windows.Shapes;
 namespace WpfApp1
 {
     /// <summary>
-    /// Interaction logic for ModifyLoginWindow.xaml
+    /// Interaction logic for ModifyPartsWindow.xaml
     /// </summary>
-    public partial class ModifyLoginWindow : Window
+    public partial class ModifyPartsWindow : Window
     {
         private bool isUserBeingAdded = false;
 
-        public ModifyLoginWindow()
+        public ModifyPartsWindow()
         {
             InitializeComponent();
-            setUseableColumns();
             bindDataGrid();
         }
 
-        // Gets the info from CurrentUser and sets the ability to change the data table based on the users permissions
-        private void setUseableColumns() {
-            // Can be set visible or read only not sure which on at this time
-            // Admin users can change permissions of all other groups exept other admin possitions
-            // Super Admin user can change admin permissions as well
-            if (CurrentUser.getAP()) {
-                dgtcMRP.Visibility = Visibility.Visible;
-                dgtcITRP.Visibility = Visibility.Visible;
-                dgtcTP.Visibility = Visibility.Visible;
-            }
-            if (CurrentUser.getSAP()) {
-                dgtcAP.Visibility = Visibility.Visible;
-                dgtcUsername.IsReadOnly = false;
-            }
-        }
-
-        private void bindDataGrid()
-        {
+        private void bindDataGrid() {
             //Instantiates a Connection String
             SqlConnection sqlCon = new SqlConnection();
             //Sets the connection string to point to the master connection set in "App.config"
@@ -73,17 +55,7 @@ namespace WpfApp1
             }
 
             //Instantiates a new sql command string
-            SqlCommand cmd = new SqlCommand();
-            //This is where you write your query to populate the table
-            //You can write any kind of query here
-
-            // Take a look at this query later, OK for primary injection, but could be suceptable to secondary sql injection specifically the ELSE statement in this IF
-            if (CurrentUser.getAP() || CurrentUser.getSAP()) cmd.CommandText = "SELECT * FROM [login]";
-            else cmd.CommandText = "SELECT * FROM [login] WHERE username='" + CurrentUser.getUsername() + "'";
-
-            //Sets the commands connection
-            cmd.Connection = sqlCon;
-
+            SqlCommand cmd = new SqlCommand("sp_QueryParts", sqlCon) { CommandType = CommandType.StoredProcedure};
             //Creates a new SQL Data Adapter (not sure what this does)
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             //Creates a new Data Table
@@ -92,32 +64,27 @@ namespace WpfApp1
             da.Fill(dtbl);
 
             //Sets the xaml data grid to display the data adapted table
-            dgLogins.ItemsSource = dtbl.DefaultView;
+            dgParts.ItemsSource = dtbl.DefaultView;
             sqlCon.Close();
         }
 
-        // This was added to handle the unique key constraint exception
-        // Currently it handles all exceptions but that can be changed later
-        private void handleSqlException(Exception exp) {
-            MessageBox.Show("Values not changed");
-        }
-
-        private void BtnAddUser_Click(object sender, RoutedEventArgs e)
+        private void BtnAddParts_Click(object sender, RoutedEventArgs e)
         {
             if (!isUserBeingAdded)
             {
                 isUserBeingAdded = true;
-                dgLogins.CanUserAddRows = true;
-                btnAddUser.Content = "End Edit";
+                dgParts.CanUserAddRows = true;
+                btnAddParts.Content = "End Edit";
             }
-            else {
+            else
+            {
                 isUserBeingAdded = false;
-                dgLogins.CanUserAddRows = false;
-                btnAddUser.Content = "Add Users";
+                dgParts.CanUserAddRows = false;
+                btnAddParts.Content = "Add Users";
             }
         }
 
-        private void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
+        private void BtnDeletePart_Click(object sender, RoutedEventArgs e)
         {
             //Instantiates a Connection String
             SqlConnection sqlCon = new SqlConnection();
@@ -126,31 +93,34 @@ namespace WpfApp1
             sqlCon.Open();
             //Instantiates a new sql command string
             SqlCommand cmd = new SqlCommand();
-            DataRowView rowSelected = dgLogins.SelectedItem as DataRowView;
+            DataRowView rowSelected = dgParts.SelectedItem as DataRowView;
             string strSelectedID = rowSelected["ID"].ToString();
-            string strSelectedUsername = rowSelected["username"].ToString();
+            string strSelectedPartNo = rowSelected["PartNo"].ToString();
             //This is where you write your query to populate the table
             //You can write any kind of query here
             //Delete statements are OK for security, and its useing the ID to delete which is database created
             //Could potentially be a stored proc but i dont see the need as of now
-            cmd.CommandText = "DELETE FROM [login] WHERE ID = " + strSelectedID;
+            cmd.CommandText = "DELETE FROM [parts] WHERE ID = " + strSelectedID;
             cmd.Connection = sqlCon;
-            if (MessageBox.Show("Are you sure you want to delete user " + strSelectedUsername + "?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes) {
+            if (MessageBox.Show("Are you sure you want to delete " + strSelectedPartNo + "?", "Delete Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
                 cmd.ExecuteNonQuery();
                 bindDataGrid();
             }
-            else {
+            else
+            {
                 MessageBox.Show("Deletion Canceled");
             }
             sqlCon.Close();
         }
 
-        // This function runs after the row edit has ended
-        // This is used for adding or editing users
-        // Currently there is no validation of data
-        // We need to make sure that there are no duplicate usernames added and that the usernames contain only 50 length string and no symbols like " ' "
-        // This kind of vetting should probably done in the stored proc or declared somewhere server side
-        private void DgLogins_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        private void BtnDetails_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // This currently does not work, just copied and pasted code from modify login window
+        private void DgParts_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
             DataGrid gd = (DataGrid)sender;
             //Console.WriteLine(grdItem);
@@ -163,7 +133,7 @@ namespace WpfApp1
             sqlCon.ConnectionString = ConfigurationManager.ConnectionStrings["masterConnection"].ConnectionString;
             sqlCon.Open();
             //Instantiates a new sql command string
-            SqlCommand cmd = new SqlCommand("sp_AddOrEditLoginPermissions", sqlCon) { CommandType = CommandType.StoredProcedure }; ;
+            SqlCommand cmd = new SqlCommand("sp_AddOrEditParts", sqlCon) { CommandType = CommandType.StoredProcedure }; ;
 
             //Sets parameters based on the new rows values
             cmd.Parameters.AddWithValue("@ID", row_Selected["ID"]);
@@ -171,7 +141,7 @@ namespace WpfApp1
             cmd.Parameters.AddWithValue("@password", row_Selected["password"].ToString());
             cmd.Parameters.AddWithValue("@first", row_Selected["firstName"].ToString());
             cmd.Parameters.AddWithValue("@last", row_Selected["lastName"].ToString());
-            
+
             // If the inputted value is null it returns false, this is needed because the default value when creating a new row is null
             if (row_Selected["maintenanceRecordsPermission"] == DBNull.Value) cmd.Parameters.AddWithValue("@MRP", 0);
             else cmd.Parameters.AddWithValue("@MRP", row_Selected["maintenanceRecordsPermission"]);
@@ -185,13 +155,15 @@ namespace WpfApp1
             MessageBox.Show("Row edit ended");
             //This statement prints all of the parameters values for debug
             //Console.WriteLine(row_Selected["ID"] + row_Selected["username"].ToString() + row_Selected["password"].ToString() + row_Selected["maintenanceRecordsPermission"] + row_Selected["itRecordsPermissions"] + row_Selected["teacherPermissions"] + row_Selected["adminPermissions"]);
-            try {
+            try
+            {
                 cmd.ExecuteNonQuery();
             }
-            catch (Exception exp) {
-                handleSqlException(exp);
+            catch (Exception exp)
+            {
+                //handleSqlException(exp);
             }
-            
+
             sqlCon.Close();
             //Rebinding the datagrid is needed because if the value is inputted as null is will continue to look like its null in the grid unless updated, then it will become false
             bindDataGrid();

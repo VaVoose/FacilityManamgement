@@ -41,12 +41,7 @@ namespace WpfApp1
             //The zone data id is also required for the query below to get accurate results
             this.Title = "Zone " + zoneID;
             roomNumber = zoneID;
-            openSQLConnection();
             bindDataGrid();
-        }
-
-        public void openSQLConnection() {
-
         }
 
         // This overrides the red 'X' button to shutdown the application without having to close the previous window
@@ -197,13 +192,6 @@ namespace WpfApp1
         // Stores the selected image in binary format to the database
         private void BtnSubmitPic_Click(object sender, RoutedEventArgs e)
         {
-            // ------ 
-            //        For some reason I have to reinstatiate the connection string everytime I want to use it in the same window
-            //        In not sure how to fix this as of now
-            //        maybe a specific static class that holds the sqlConnection?
-            //        Somehow instatiate it for the whole window? (tried this with no luck)
-            //------- 
-
             //Instantiates a Connection String
             SqlConnection sqlCon = new SqlConnection();
             //Sets the connection string to point to the master connection set in "App.config"

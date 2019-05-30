@@ -19,19 +19,20 @@
         <Menu DockPanel.Dock="Top" Grid.Row="0">
 
             <MenuItem Header="_File">
-                <MenuItem Header="_New" Click="FileNewClick" />
-                <MenuItem Header="_Open" Click="FileOpenClick" />
-                <MenuItem Header="_Save" Click="ToolsModifyClick"/>
+                <MenuItem x:Name="miNew" Header="_New" Click="FileNewClick" />
+                <MenuItem x:Name="miOpen" Header="_Open" Click="FileOpenClick" />
+                <MenuItem x:Name="miSave1" Header="_Save" Click="ToolsModifyClick"/>
                 <Separator />
-                <MenuItem Header="_Exit" Click="FileExitClick" />
+                <MenuItem x:Name="miExit" Header="_Exit" Click="MiExit_Click"  />
             </MenuItem>
 
             <MenuItem Header="_Tools">
-                <MenuItem Header="Modify Zoning" Click="ToolsModifyClick" />
-                <MenuItem Header="_Change Blueprint" Click="ToolsBlueprintClick"/>
-                <MenuItem Header="_Save" Click="ToolsSaveClick" />
+                <MenuItem x:Name="miModifyZoning" Header="Modify Zoning" Click="ToolsModifyClick" />
+                <MenuItem x:Name="miModifyParts" Header="Modify Parts" Click="MiModifyParts_Click"/>
+                <MenuItem x:Name="miChangeBlueprint" Header="_Change Blueprint" Click="ToolsBlueprintClick"/>
+                <MenuItem x:Name="miSave" Header="_Save" Click="ToolsSaveClick" />
                 <Separator />
-                <MenuItem Header="_Exit" />
+                <MenuItem x:Name="miExit2" Header="_Exit" Click="MiExit2_Click" />
             </MenuItem>
             <MenuItem Header="Options">
                 <MenuItem x:Name="miLogOut" Header="Log Out" Click="OptionsLogOut_Click"/>

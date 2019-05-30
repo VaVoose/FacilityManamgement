@@ -71,6 +71,9 @@
     <Compile Include="ModifyLoginWindow.xaml.cs">
       <DependentUpon>ModifyLoginWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ModifyPartsWindow.xaml.cs">
+      <DependentUpon>ModifyPartsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ZoneWindow.xaml.cs">
       <DependentUpon>ZoneWindow.xaml</DependentUpon>
     </Compile>
@@ -95,6 +98,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ModifyLoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModifyPartsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

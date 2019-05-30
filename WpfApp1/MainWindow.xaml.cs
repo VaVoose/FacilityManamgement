@@ -26,6 +26,7 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+            setPermissions();
             Console.WriteLine(CurrentUser.getUsername() + CurrentUser.getMRP() + CurrentUser.getITRP() + CurrentUser.getTP() + CurrentUser.getAP() + CurrentUser.getSAP());
         }
 
@@ -37,6 +38,13 @@ namespace WpfApp1
         //    base.OnClosed(e);
         //    Application.Current.Shutdown();
         //}
+
+        // Wayne - Here you can set the permissions for what users should be able to do in this screen
+        // Change everything to be default enabled to be false and set true based on certain permissions
+        // Example - if (currentUser.getAP()){miNew.isEnabled = true}
+        private void setPermissions() {
+
+        }
 
         private void FileNewClick(object sender, RoutedEventArgs e)
         {
@@ -83,6 +91,7 @@ namespace WpfApp1
         private void OptionsModifyLogin_Click(object sender, RoutedEventArgs e)
         {
             ModifyLoginWindow mlw = new ModifyLoginWindow();
+            mlw.Owner = this;
             mlw.ShowDialog();
         }
 
@@ -99,6 +108,23 @@ namespace WpfApp1
             MainMenu mm = new MainMenu();
             mm.Owner = this;
             mm.ShowDialog();
+        }
+
+        private void MiModifyParts_Click(object sender, RoutedEventArgs e)
+        {
+            ModifyPartsWindow mpw = new ModifyPartsWindow();
+            mpw.Owner = this;
+            mpw.ShowDialog();
+        }
+
+        private void MiExit2_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void MiExit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

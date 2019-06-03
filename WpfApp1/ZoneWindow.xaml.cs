@@ -82,11 +82,12 @@ namespace WpfApp1
             SqlCommand cmd = new SqlCommand();
             //This is where you write your query to populate the table
             //You can write any kind of query here
+
             // --- create stored proc for this --- //
             cmd.CommandText = "SELECT * FROM [parts] WHERE roomID = " + roomNumber;
-            //Sets the commands connectio
+            //Sets the commands connection
             cmd.Connection = sqlCon;
-
+            //cmd.Parameters.AddWithValue("@roomNumber", roomNumber);
             //Creates a new SQL Data Adapter (not sure what this does)
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             //Creates a new Data Table

@@ -7,32 +7,36 @@
         mc:Ignorable="d"
         Title="Modify Parts" Height="487.598" Width="800">
     <Grid>
-        <StackPanel>
-            <DataGrid x:Name="dgParts" Grid.Column="0" HorizontalAlignment="Center" Height="379" Margin="10,10" VerticalAlignment="Top" AutoGenerateColumns="False" CanUserAddRows="False" RowEditEnding="DgParts_RowEditEnding">
-                <DataGrid.Columns>
-                    <!--The Binding part works like this Binding = {Binding (column in the queried table that you want to see)}-->
-                    <DataGridTextColumn x:Name="dgtcPartNo" Header="Part No" Binding="{Binding PartNo, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                    <DataGridTextColumn x:Name="dgtcParentPart" Header="Parent Part" Binding="{Binding PPNo, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                    <DataGridTextColumn x:Name="dgtcRoom" Header="Room" Binding="{Binding RN, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                    <DataGridTextColumn x:Name="dgtcLocation" Header="Location" Binding="{Binding LN, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
-                    <DataGridTemplateColumn Header="Details">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button x:Name="btnDetails" Content="..." Click="BtnDetails_Click"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button x:Name="btnAddParts" Content="Add Parts" Grid.Column="0" Click="BtnAddParts_Click"/>
-                <Button x:Name="btnDeletePart" Content="Delete Part" Grid.Column="1" Click="BtnDeletePart_Click"/>
-            </Grid>
-        </StackPanel>
-
+        <Border Padding="10">
+            <StackPanel>
+                <Label x:Name="lblFilter" Content="Filter By:"/>
+                <TextBox x:Name="txtFilter"/>
+                <Button x:Name="btnFilter" Content="Filter" Click="BtnFilter_Click"/>
+                <DataGrid x:Name="dgParts" Grid.Column="0" HorizontalAlignment="Center" Height="379" Margin="10,10" VerticalAlignment="Top" AutoGenerateColumns="False" CanUserAddRows="False" RowEditEnding="DgParts_RowEditEnding">
+                    <DataGrid.Columns>
+                        <!--The Binding part works like this Binding = {Binding (column in the queried table that you want to see)}-->
+                        <DataGridTextColumn x:Name="dgtcPartNo" Header="Part No" Binding="{Binding PartNo, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                        <DataGridTextColumn x:Name="dgtcParentPart" Header="Parent Part" Binding="{Binding PPNo, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                        <DataGridTextColumn x:Name="dgtcRoom" Header="Room" Binding="{Binding RN, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                        <DataGridTextColumn x:Name="dgtcLocation" Header="Location" Binding="{Binding LN, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                        <DataGridTemplateColumn Header="Details">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button x:Name="btnDetails" Content="..." Click="BtnDetails_Click"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnAddParts" Content="Add Parts" Grid.Column="0" Click="BtnAddParts_Click"/>
+                    <Button x:Name="btnDeletePart" Content="Delete Part" Grid.Column="1" Click="BtnDeletePart_Click"/>
+                </Grid>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

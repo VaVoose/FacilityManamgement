@@ -22,7 +22,8 @@ namespace WpfApp1
     /// </summary>
     public partial class ModifyPartsWindow : Window
     {
-        private bool isUserBeingAdded = false;
+        private bool isRowsBeingAdded = false;
+        private DataTable dtbl = new DataTable("Parts");
 
         public ModifyPartsWindow()
         {
@@ -70,15 +71,15 @@ namespace WpfApp1
 
         private void BtnAddParts_Click(object sender, RoutedEventArgs e)
         {
-            if (!isUserBeingAdded)
+            if (!isRowsBeingAdded)
             {
-                isUserBeingAdded = true;
+                isRowsBeingAdded = true;
                 dgParts.CanUserAddRows = true;
                 btnAddParts.Content = "End Edit";
             }
             else
             {
-                isUserBeingAdded = false;
+                isRowsBeingAdded = false;
                 dgParts.CanUserAddRows = false;
                 btnAddParts.Content = "Add Users";
             }
@@ -167,6 +168,13 @@ namespace WpfApp1
             sqlCon.Close();
             //Rebinding the datagrid is needed because if the value is inputted as null is will continue to look like its null in the grid unless updated, then it will become false
             bindDataGrid();
+        }
+
+        private void BtnFilter_Click(object sender, RoutedEventArgs e)
+        {
+            DataView dv = dtbl.DefaultView;
+            dv.RowFilter = string.Format("PartNo like '%{0}%'", txtFilter.Text);
+            dgParts.ItemsSource = dtbl.DefaultView;
         }
     }
 }

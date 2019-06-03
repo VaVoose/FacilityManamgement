@@ -22,7 +22,7 @@ namespace WpfApp1
     /// </summary>
     public partial class ModifyLoginWindow : Window
     {
-        private bool isUserBeingAdded = false;
+        private bool isRowsBeingAdded = false;
 
         public ModifyLoginWindow()
         {
@@ -104,14 +104,14 @@ namespace WpfApp1
 
         private void BtnAddUser_Click(object sender, RoutedEventArgs e)
         {
-            if (!isUserBeingAdded)
+            if (!isRowsBeingAdded)
             {
-                isUserBeingAdded = true;
+                isRowsBeingAdded = true;
                 dgLogins.CanUserAddRows = true;
                 btnAddUser.Content = "End Edit";
             }
             else {
-                isUserBeingAdded = false;
+                isRowsBeingAdded = false;
                 dgLogins.CanUserAddRows = false;
                 btnAddUser.Content = "Add Users";
             }

@@ -22,8 +22,8 @@ namespace WpfApp1
     /// </summary>
     public partial class ModifyPartsWindow : Window
     {
-        private bool isRowsBeingAdded = false;
-        private DataTable dtbl = new DataTable("Parts");
+        private bool isRowsBeingAdded = false; //boolean to deturmine wether the ability to add rows is enabled
+        private string filterString = "";
 
         public ModifyPartsWindow()
         {
@@ -57,6 +57,7 @@ namespace WpfApp1
 
             //Instantiates a new sql command string
             SqlCommand cmd = new SqlCommand("sp_QueryParts", sqlCon) { CommandType = CommandType.StoredProcedure};
+            cmd.Parameters.AddWithValue("@columnFilter", filterString);
             //Creates a new SQL Data Adapter (not sure what this does)
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             //Creates a new Data Table
@@ -83,6 +84,11 @@ namespace WpfApp1
                 dgParts.CanUserAddRows = false;
                 btnAddParts.Content = "Add Users";
             }
+        }
+
+        private void handleSqlException(Exception exp)
+        {
+            MessageBox.Show("Values not changed");
         }
 
         private void BtnDeletePart_Click(object sender, RoutedEventArgs e)
@@ -138,43 +144,40 @@ namespace WpfApp1
 
             //Sets parameters based on the new rows values
             cmd.Parameters.AddWithValue("@ID", row_Selected["ID"]);
-            cmd.Parameters.AddWithValue("@username", row_Selected["username"].ToString());
-            cmd.Parameters.AddWithValue("@password", row_Selected["password"].ToString());
-            cmd.Parameters.AddWithValue("@first", row_Selected["firstName"].ToString());
-            cmd.Parameters.AddWithValue("@last", row_Selected["lastName"].ToString());
-
-            // If the inputted value is null it returns false, this is needed because the default value when creating a new row is null
-            if (row_Selected["maintenanceRecordsPermission"] == DBNull.Value) cmd.Parameters.AddWithValue("@MRP", 0);
-            else cmd.Parameters.AddWithValue("@MRP", row_Selected["maintenanceRecordsPermission"]);
-            if (row_Selected["itRecordsPermissions"] == DBNull.Value) cmd.Parameters.AddWithValue("@ITRP", 0);
-            else cmd.Parameters.AddWithValue("@ITRP", row_Selected["itRecordsPermissions"]);
-            if (row_Selected["teacherPermissions"] == DBNull.Value) cmd.Parameters.AddWithValue("@TP", 0);
-            else cmd.Parameters.AddWithValue("@TP", row_Selected["teacherPermissions"]);
-            if (row_Selected["adminPermissions"] == DBNull.Value) cmd.Parameters.AddWithValue("@AP", 0);
-            else cmd.Parameters.AddWithValue("@AP", row_Selected["adminPermissions"]);
+            cmd.Parameters.AddWithValue("@partNo", row_Selected["PartNo"].ToString());
+            cmd.Parameters.AddWithValue("@parentPart", row_Selected["PPNo"].ToString());
+            cmd.Parameters.AddWithValue("@room", row_Selected["RN"].ToString());
+            cmd.Parameters.AddWithValue("@location", row_Selected["LN"].ToString());
 
             MessageBox.Show("Row edit ended");
-            //This statement prints all of the parameters values for debug
-            //Console.WriteLine(row_Selected["ID"] + row_Selected["username"].ToString() + row_Selected["password"].ToString() + row_Selected["maintenanceRecordsPermission"] + row_Selected["itRecordsPermissions"] + row_Selected["teacherPermissions"] + row_Selected["adminPermissions"]);
             try
             {
                 cmd.ExecuteNonQuery();
             }
             catch (Exception exp)
             {
-                //handleSqlException(exp);
+                //Again, another catch all exception handle
+                handleSqlException(exp);
             }
 
             sqlCon.Close();
-            //Rebinding the datagrid is needed because if the value is inputted as null is will continue to look like its null in the grid unless updated, then it will become false
             bindDataGrid();
         }
 
+        // Filters based on what is entered in the text box
+        // This get results in all columns
+        // In the future if needed it can be implemented to search a specific column
         private void BtnFilter_Click(object sender, RoutedEventArgs e)
         {
-            DataView dv = dtbl.DefaultView;
-            dv.RowFilter = string.Format("PartNo like '%{0}%'", txtFilter.Text);
-            dgParts.ItemsSource = dtbl.DefaultView;
+            // Sets the filter string
+            filterString = txtFilter.Text;
+            //Binds the data grid
+            bindDataGrid();
+        }
+
+        private void DgParts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

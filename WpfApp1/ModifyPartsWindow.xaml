@@ -5,14 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="Modify Parts" Height="487.598" Width="800">
+        Title="Modify Parts" Height="550.052" Width="863.812">
     <Grid>
         <Border Padding="10">
             <StackPanel>
                 <Label x:Name="lblFilter" Content="Filter By:"/>
                 <TextBox x:Name="txtFilter"/>
                 <Button x:Name="btnFilter" Content="Filter" Click="BtnFilter_Click"/>
-                <DataGrid x:Name="dgParts" Grid.Column="0" HorizontalAlignment="Center" Height="379" Margin="10,10" VerticalAlignment="Top" AutoGenerateColumns="False" CanUserAddRows="False" RowEditEnding="DgParts_RowEditEnding">
+                <DataGrid x:Name="dgParts" Grid.Column="0" HorizontalAlignment="Center" Height="379" Margin="10,10" VerticalAlignment="Top" AutoGenerateColumns="False" CanUserAddRows="False" RowEditEnding="DgParts_RowEditEnding" RowDetailsVisibilityMode="VisibleWhenSelected" SelectionChanged="DgParts_SelectionChanged">
+                    <DataGrid.RowDetailsTemplate>
+                        <DataTemplate>
+                            <Border Padding="10">
+                                <Grid Height="40">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image x:Name="imgPartPic" Grid.Column="0"/>
+                                    <Button x:Name="btnChangeImage" Content="Change Image" Grid.Column="1"/>
+                                    <Button x:Name="btnScanBarcode" Content="Change Barcode" Grid.Column="2"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </DataGrid.RowDetailsTemplate>
                     <DataGrid.Columns>
                         <!--The Binding part works like this Binding = {Binding (column in the queried table that you want to see)}-->
                         <DataGridTextColumn x:Name="dgtcPartNo" Header="Part No" Binding="{Binding PartNo, UpdateSourceTrigger=PropertyChanged}" Width="*"/>

@@ -23,7 +23,7 @@ namespace WpfApp1
     public partial class ModifyPartsWindow : Window
     {
         private bool isRowsBeingAdded = false; //boolean to deturmine wether the ability to add rows is enabled
-        private string filterString = "";
+        private string filterString = ""; //The string that the parts are filtered by
 
         public ModifyPartsWindow()
         {
@@ -57,6 +57,7 @@ namespace WpfApp1
 
             //Instantiates a new sql command string
             SqlCommand cmd = new SqlCommand("sp_QueryParts", sqlCon) { CommandType = CommandType.StoredProcedure};
+            //Sets the filter string
             cmd.Parameters.AddWithValue("@columnFilter", filterString);
             //Creates a new SQL Data Adapter (not sure what this does)
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -70,6 +71,7 @@ namespace WpfApp1
             sqlCon.Close();
         }
 
+        //Changes the state of being able to add new parts
         private void BtnAddParts_Click(object sender, RoutedEventArgs e)
         {
             if (!isRowsBeingAdded)
@@ -86,11 +88,13 @@ namespace WpfApp1
             }
         }
 
+        //Currently a catch all situation of handling sql exceptions
         private void handleSqlException(Exception exp)
         {
             MessageBox.Show("Values not changed");
         }
 
+        // Handles thew deletion of parts from the database
         private void BtnDeletePart_Click(object sender, RoutedEventArgs e)
         {
             //Instantiates a Connection String
@@ -126,7 +130,7 @@ namespace WpfApp1
 
         }
 
-        // This currently does not work, just copied and pasted code from modify login window
+        // Handles the editing and adding of parts in the database
         private void DgParts_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
             DataGrid gd = (DataGrid)sender;

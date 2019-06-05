@@ -22,7 +22,7 @@ namespace WpfApp1
     /// </summary>
     public partial class ModifyLoginWindow : Window
     {
-        private bool isRowsBeingAdded = false;
+        private bool isRowsBeingAdded = false; //Are new rows being added
 
         public ModifyLoginWindow()
         {
@@ -102,6 +102,7 @@ namespace WpfApp1
             MessageBox.Show("Values not changed");
         }
 
+        //Handles the ability for the user to add more users
         private void BtnAddUser_Click(object sender, RoutedEventArgs e)
         {
             if (!isRowsBeingAdded)
@@ -117,6 +118,7 @@ namespace WpfApp1
             }
         }
 
+        // Handles the deletion of users
         private void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
         {
             //Instantiates a Connection String
